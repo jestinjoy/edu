@@ -3,33 +3,152 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> Money Contribution Game</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Educational Navigation</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding: 20px;
+    }
+  </style>
 </head>
 <body>
 
-  <h2>Money Contribution Game</h2>
+  <div class="container">
+    <h2 class="mt-5">Educational Navigation</h2>
 
-  <div id="game-container">
-    <table id="contribution-table">
-      <thead>
-        <tr>
-          <th>Notes</th>
-          <th>Value</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Rows will be dynamically added using JavaScript -->
-      </tbody>
-    </table>
-
-    <div id="result">
-      <p id="feedback"></p>
+    <!-- Class Buttons -->
+    <div class="row mt-4">
+      <div class="col-md-3">
+        <button class="btn btn-primary btn-lg btn-block" onclick="populateSubjects('class1')">Class 1</button>
+      </div>
+      <div class="col-md-3">
+        <button class="btn btn-primary btn-lg btn-block" onclick="populateSubjects('class2')">Class 2</button>
+      </div>
+      <div class="col-md-3">
+        <button class="btn btn-primary btn-lg btn-block" onclick="populateSubjects('class3')">Class 3</button>
+      </div>
     </div>
+
+    <!-- Subjects Container (Initially Hidden) -->
+    <div id="subjectsContainer" class="mt-4 d-none">
+      <h3>Subjects</h3>
+      <div id="subjectsButtons" class="row">
+        <!-- Subjects buttons will be dynamically added here -->
+      </div>
+    </div>
+
+    <!-- Chapters Container (Initially Hidden) -->
+    <div id="chaptersContainer" class="mt-4 d-none">
+      <h3>Chapters</h3>
+      <div id="chaptersButtons" class="row">
+        <!-- Chapters buttons will be dynamically added here -->
+      </div>
+    </div>
+
+    <!-- Activities Container (Initially Hidden) -->
+    <div id="activitiesContainer" class="mt-4 d-none">
+      <h3>Activities</h3>
+      <div id="activitiesButtons" class="row">
+        <!-- Activities buttons will be dynamically added here -->
+      </div>
+    </div>
+
   </div>
 
-  <script src="script.js"></script>
+  <!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Function to handle navigation between sections
+    function navigateTo(section) {
+      // Hide all containers
+      document.getElementById('subjectsContainer').classList.add('d-none');
+      document.getElementById('chaptersContainer').classList.add('d-none');
+      document.getElementById('activitiesContainer').classList.add('d-none');
+
+      // Show the selected container
+      document.getElementById(`${section}Container`).classList.remove('d-none');
+    }
+
+    // Function to dynamically populate subjects when a class button is clicked
+    function populateSubjects(className) {
+      // Example: populate subjects based on class
+      let subjects = [];
+      if (className === 'class1') {
+        subjects = ['Mathematics', 'Science', 'English'];
+      } else if (className === 'class2') {
+        subjects = ['Social Studies', 'Computer Science', 'Art'];
+      } else if (className === 'class3') {
+        subjects = ['Geography', 'Music', 'Physical Education'];
+      }
+
+      // Populate the subjects container with buttons
+      const subjectsButtonsContainer = document.getElementById('subjectsButtons');
+      subjectsButtonsContainer.innerHTML = '';
+      subjects.forEach(subject => {
+        const button = document.createElement('div');
+        button.classList.add('col-md-3');
+        button.innerHTML = `<button class="btn btn-secondary btn-lg btn-block" onclick="populateChapters('${subject}')">${subject}</button>`;
+        subjectsButtonsContainer.appendChild(button);
+      });
+
+      // Show the subjects container
+      document.getElementById('subjectsContainer').classList.remove('d-none');
+    }
+
+    // Function to dynamically populate chapters when a subject button is clicked
+    function populateChapters(subject) {
+      // Example: populate chapters based on subject
+      let chapters = ['Chapter 1', 'Chapter 2', 'Chapter 3'];
+
+      // Populate the chapters container with buttons
+      const chaptersButtonsContainer = document.getElementById('chaptersButtons');
+      chaptersButtonsContainer.innerHTML = '';
+      chapters.forEach(chapter => {
+        const button = document.createElement('div');
+        button.classList.add('col-md-3');
+        button.innerHTML = `<button class="btn btn-info btn-lg btn-block" onclick="populateActivities('${chapter}')">${chapter}</button>`;
+        chaptersButtonsContainer.appendChild(button);
+      });
+
+      // Show the chapters container
+      document.getElementById('chaptersContainer').classList.remove('d-none');
+    }
+
+    // Function to dynamically populate activities when a chapter button is clicked
+    function populateActivities(chapter) {
+      // Example: populate activities based on chapter
+      let activities = [];
+      if (chapter === 'Chapter 1') {
+        activities = ['Activity 1', 'Activity 2', 'Activity 3'];
+      } else if (chapter === 'Chapter 2') {
+        activities = ['Activity 4', 'Activity 5'];
+      } else if (chapter === 'Chapter 3') {
+        activities = ['Activity 6', 'Activity 7', 'Activity 8', 'Activity 9'];
+      }
+
+      // Populate the activities container with buttons
+      const activitiesButtonsContainer = document.getElementById('activitiesButtons');
+      activitiesButtonsContainer.innerHTML = '';
+      activities.forEach(activity => {
+        const button = document.createElement('div');
+        button.classList.add('col-md-3');
+        button.innerHTML = `<button class="btn btn-success btn-lg btn-block" onclick="navigateToActivity('${activity}')">${activity}</button>`;
+        activitiesButtonsContainer.appendChild(button);
+      });
+
+      // Show the activities container
+      document.getElementById('activitiesContainer').classList.remove('d-none');
+    }
+
+    // Function to navigate to a new page for activities
+    function navigateToActivity(activity) {
+      // You can customize the URL pattern for activities
+      window.location.href = `activityPage.html?activity=${activity}`;
+    }
+  </script>
+
 </body>
 </html>
 
